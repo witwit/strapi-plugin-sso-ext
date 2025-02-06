@@ -12,6 +12,7 @@ You will be able to log in to the administration screen using one of the followi
 - Cognito
 - Azure
 - OIDC
+- Keycloak
 
 Please read the [documents](#user-content-documentationenglish) for some precautions.
 
@@ -39,7 +40,7 @@ npm i strapi-plugin-sso
 # Requirements
 
 - **strapi-plugin-sso**
-- Google Account or AWS Cognito UserPool or a OIDC provider
+- Google Account or AWS Cognito UserPool or a OIDC provider or Keycloak
 
 # Example Configuration
 
@@ -88,6 +89,14 @@ module.exports = ({env}) => ({
       OIDC_FAMILY_NAME_FIELD: 'family_name',
       OIDC_GIVEN_NAME_FIELD: 'given_name',
 
+      // Keycloak
+      KEYCLOAK_CLIENT_ID: '[Client ID created in Keycloak]',
+      KEYCLOAK_CLIENT_SECRET: '[Client Secret created in Keycloak]',
+      KEYCLOAK_REALM: '[Realm created in Keycloak]',
+      KEYCLOAK_SERVER_URL: '[Server URL of Keycloak]',
+      KEYCLOAK_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso/keycloak/callback',
+      KEYCLOAK_SCOPE: 'openid profile email',
+
       USE_WHITELIST: true // allow authentication only at the specified email address.
     }
   }
@@ -108,6 +117,8 @@ Of the above, the environment variable for the provider you wish to use is all t
 
 [OIDC Single Sign On Setup](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/en/oidc/setup.md)
 
+[Keycloak Single Sign On Setup](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/en/keycloak/setup.md)
+
 [whitelist](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/whitelist.md)
 
 # Documentation(Japanese)
@@ -125,6 +136,8 @@ Of the above, the environment variable for the provider you wish to use is all t
 TODO AzureAD Single Sign On Setup
 
 TODO OIDC Single Sign On Setup
+
+TODO Keycloak Single Sign On Setup
 
 # Demo
 

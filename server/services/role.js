@@ -3,6 +3,7 @@ export default ({strapi}) => ({
   SSO_TYPE_COGNITO: '2',
   SSO_TYPE_AZUREAD: "3",
   SSO_TYPE_OIDC: '4',
+  SSO_TYPE_KEYCLOAK: '5',
     ssoRoles() {
     return [
       {
@@ -19,6 +20,10 @@ export default ({strapi}) => ({
       {
         'oauth_type': this.SSO_TYPE_OIDC,
         name: 'OIDC'
+      },
+      {
+        'oauth_type': this.SSO_TYPE_KEYCLOAK,
+        name: 'Keycloak'
       },
     ];
   },
@@ -53,6 +58,15 @@ export default ({strapi}) => ({
       .findOne({
         where: {
           'oauth_type': this.SSO_TYPE_OIDC
+        }
+      })
+  },
+  async keycloakRoles() {
+    return await strapi
+      .query('plugin::strapi-plugin-sso.roles')
+      .findOne({
+        where: {
+          'oauth_type': this.SSO_TYPE_KEYCLOAK
         }
       })
   },
