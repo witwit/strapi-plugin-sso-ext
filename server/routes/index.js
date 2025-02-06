@@ -87,5 +87,21 @@ export default [
     method: 'DELETE',
     path: '/whitelist/:id',
     handler: 'whitelist.removeEmail'
+  },
+  {
+    method: 'GET',
+    path: '/keycloak',
+    handler: 'keycloak.keycloakSignIn',
+    config: {
+      auth: false,
+    },
+  },
+  {
+    method: 'GET',
+    path: '/keycloak/callback',
+    handler: 'keycloak.keycloakSignInCallback',
+    config: {
+      auth: false,
+    },
   }
 ];
