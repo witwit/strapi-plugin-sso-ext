@@ -29,7 +29,7 @@ export default ({strapi}) => ({
   },
   async googleRoles() {
     return await strapi
-      .query('plugin::strapi-plugin-sso.roles')
+      .query('plugin::strapi-plugin-sso-ext.roles')
       .findOne({
         where: {
           'oauth_type': this.SSO_TYPE_GOOGLE
@@ -38,7 +38,7 @@ export default ({strapi}) => ({
   },
   async cognitoRoles() {
     return await strapi
-      .query('plugin::strapi-plugin-sso.roles')
+      .query('plugin::strapi-plugin-sso-ext.roles')
       .findOne({
         where: {
           'oauth_type': this.SSO_TYPE_COGNITO
@@ -46,7 +46,7 @@ export default ({strapi}) => ({
       })
   },
   async azureAdRoles() {
-    return await strapi.query('plugin::strapi-plugin-sso.roles').findOne({
+    return await strapi.query('plugin::strapi-plugin-sso-ext.roles').findOne({
       where: {
         oauth_type: this.SSO_TYPE_AZUREAD
       },
@@ -54,7 +54,7 @@ export default ({strapi}) => ({
   },
     async oidcRoles() {
     return await strapi
-      .query('plugin::strapi-plugin-sso.roles')
+      .query('plugin::strapi-plugin-sso-ext.roles')
       .findOne({
         where: {
           'oauth_type': this.SSO_TYPE_OIDC
@@ -63,7 +63,7 @@ export default ({strapi}) => ({
   },
   async keycloakRoles() {
     return await strapi
-      .query('plugin::strapi-plugin-sso.roles')
+      .query('plugin::strapi-plugin-sso-ext.roles')
       .findOne({
         where: {
           'oauth_type': this.SSO_TYPE_KEYCLOAK
@@ -72,11 +72,11 @@ export default ({strapi}) => ({
   },
     async find() {
     return await strapi
-      .query('plugin::strapi-plugin-sso.roles')
+      .query('plugin::strapi-plugin-sso-ext.roles')
       .findMany()
   },
    async update(roles) {
-    const query = strapi.query('plugin::strapi-plugin-sso.roles')
+    const query = strapi.query('plugin::strapi-plugin-sso-ext.roles')
     await Promise.all(
       roles.map((role) => {
         return query.findOne({where: {'oauth_type': role['oauth_type']}}).then(ssoRole => {

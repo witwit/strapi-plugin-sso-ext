@@ -2,7 +2,7 @@
  <img src="https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/strapi-plugin-sso.png?raw=true" width="180"/>
 </div>
 
-# Strapi plugin strapi-plugin-sso
+# Strapi plugin strapi-plugin-sso-ext
 
 This plugin can provide single sign-on.
 
@@ -20,26 +20,25 @@ Please read the [documents](#user-content-documentationenglish) for some precaut
 
 # Version
 
-| NodeJS          | Strapi | strapi-plugin-sso |
-|-----------------|--------|-------------------|
-| 16.0.0 - 21.0.0 | v4     | 0.\*.\*           |
-| 18.0.0 - 22.0.0 | v5     | 1.\*.\*           |
+| NodeJS          | Strapi | strapi-plugin-sso-ext |
+|-----------------|--------|-----------------------|
+| 18.0.0 - 22.0.0 | v5     | 1.\*.\*               |
 
 # Easy to install
 
 ```shell
-yarn add strapi-plugin-sso
+yarn add strapi-plugin-sso-ext
 ```
 
 or
 
 ```shell
-npm i strapi-plugin-sso
+npm i strapi-plugin-sso-ext
 ```
 
 # Requirements
 
-- **strapi-plugin-sso**
+- **strapi-plugin-sso-ext**
 - Google Account or AWS Cognito UserPool or a OIDC provider or Keycloak
 
 # Example Configuration
@@ -47,7 +46,7 @@ npm i strapi-plugin-sso
 ```javascript
 // config/plugins.js
 module.exports = ({env}) => ({
-  'strapi-plugin-sso': {
+  'strapi-plugin-sso-ext': {
     enabled: true,
     config: {
       // Either sets token to session storage if false or local storage if true
@@ -55,7 +54,7 @@ module.exports = ({env}) => ({
       // Google
       GOOGLE_OAUTH_CLIENT_ID: '[Client ID created in GCP]',
       GOOGLE_OAUTH_CLIENT_SECRET: '[Client Secret created in GCP]',
-      GOOGLE_OAUTH_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso/google/callback', // URI after successful login
+      GOOGLE_OAUTH_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso-ext/google/callback', // URI after successful login
       GOOGLE_ALIAS: '', // Gmail Aliases
       GOOGLE_GSUITE_HD: '', // G Suite Primary Domain
 
@@ -63,18 +62,18 @@ module.exports = ({env}) => ({
       COGNITO_OAUTH_CLIENT_ID: '[Client ID created in AWS Cognito]',
       COGNITO_OAUTH_CLIENT_SECRET: '[Client Secret created in AWS Cognito]',
       COGNITO_OAUTH_DOMAIN: '[OAuth Domain created in AWS Cognito]',
-      COGNITO_OAUTH_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso/cognito/callback', //  // URI after successful login
+      COGNITO_OAUTH_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso-ext/cognito/callback', //  // URI after successful login
       COGNITO_OAUTH_REGION: 'ap-northeast-1', // AWS Cognito Region 
 
       // AzureAD
-      AZUREAD_OAUTH_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso/azuread/callback',
+      AZUREAD_OAUTH_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso-ext/azuread/callback',
       AZUREAD_TENANT_ID: '[Tenant ID created in AzureAD]',
       AZUREAD_OAUTH_CLIENT_ID: '[Client ID created in AzureAD]', // [Application (client) ID]
       AZUREAD_OAUTH_CLIENT_SECRET: '[Client Secret created in AzureAD]',
       AZUREAD_SCOPE: 'user.read', // https://learn.microsoft.com/en-us/graph/permissions-reference
 
       // OpenID Connect
-      OIDC_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso/oidc/callback', // URI after successful login
+      OIDC_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso-ext/oidc/callback', // URI after successful login
       OIDC_CLIENT_ID: '[Client ID from OpenID Provider]',
       OIDC_CLIENT_SECRET: '[Client Secret from OpenID Provider]',
 
@@ -94,7 +93,7 @@ module.exports = ({env}) => ({
       KEYCLOAK_CLIENT_SECRET: '[Client Secret created in Keycloak]',
       KEYCLOAK_REALM: '[Realm created in Keycloak]',
       KEYCLOAK_SERVER_URL: '[Server URL of Keycloak]',
-      KEYCLOAK_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso/keycloak/callback',
+      KEYCLOAK_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso-ext/keycloak/callback',
       KEYCLOAK_SCOPE: 'openid profile email',
 
       USE_WHITELIST: true // allow authentication only at the specified email address.
