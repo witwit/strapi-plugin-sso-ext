@@ -29,5 +29,3 @@ Use the following environment variables to configure the Keycloak integration:
 4. `KEYCLOAK_SERVER_URL`: The Server URL of Keycloak.
 5. `KEYCLOAK_REDIRECT_URI`: The callback URL used by Keycloak to redirect the user after authentication. Defaults to 'http://localhost:1337/strapi-plugin-sso-ext/keycloak/callback'.
 6. `KEYCLOAK_SCOPE`: The permissions your application requires from the user. Defaults to 'openid profile email'.
-
-Make sure to replace the placeholders with the actual values you obtained from Keycloak.
