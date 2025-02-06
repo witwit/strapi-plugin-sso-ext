@@ -96,7 +96,8 @@ module.exports = ({env}) => ({
       KEYCLOAK_REDIRECT_URI: 'http://localhost:1337/strapi-plugin-sso-ext/keycloak/callback',
       KEYCLOAK_SCOPE: 'openid profile email',
 
-      USE_WHITELIST: true // allow authentication only at the specified email address.
+      USE_WHITELIST: true, // allow authentication only at the specified email address.
+      SHOW_EMAIL_LOGIN: env('SHOW_EMAIL_LOGIN', true) // show or hide email login
     }
   }
 })

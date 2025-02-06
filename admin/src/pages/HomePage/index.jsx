@@ -2,6 +2,9 @@ import React, {memo, useEffect, useState} from 'react';
 import {
   Box,
   Tabs,
+  Button,
+  Checkbox,
+  TextInput,
 } from '@strapi/design-system';
 import {Page, Layouts} from '@strapi/strapi/admin';
 import {useIntl} from 'react-intl';
@@ -29,15 +32,18 @@ const HomePage = () => {
   const {get, put, post, del} = useFetchClient();
 
   useEffect(() => {
-    get(`/strapi-plugin-sso/sso-roles`).then((response) => {
+    get(`/strapi-plugin-sso-ext/sso-roles`).then((response) => {
       setSSORoles(response.data)
     })
     get(`/admin/roles`).then((response) => {
       setRoles(response.data.data)
     })
-    get('/strapi-plugin-sso/whitelist').then(response => {
+    get('/strapi-plugin-sso-ext/whitelist').then(response => {
       setUsers(response.data.whitelistUsers)
       setUseWhitelist(response.data.useWhitelist)
+    })
+    get('/config/environment').then(response => {
+      setShowEmailLogin(response.data.SHOW_EMAIL_LOGIN);
     })
   }, [setSSORoles, setRoles])
 
@@ -59,7 +65,7 @@ const HomePage = () => {
   }
   const onSaveRole = async () => {
     try {
-      await put('/strapi-plugin-sso/sso-roles', {
+      await put('/strapi-plugin-sso-ext/sso-roles', {
         roles: ssoRoles.map(role => ({
           'oauth_type': role['oauth_type'], role: role['role']
         }))
@@ -79,10 +85,10 @@ const HomePage = () => {
 
   const onRegisterWhitelist = async (email) => {
     setLoading(true)
-    post('/strapi-plugin-sso/whitelist', {
+    post('/strapi-plugin-sso-ext/whitelist', {
       email,
     }).then(response => {
-      get('/strapi-plugin-sso/whitelist').then(response => {
+      get('/strapi-plugin-sso-ext/whitelist').then(response => {
         setUsers(response.data.whitelistUsers)
         setUseWhitelist(response.data.useWhitelist)
       })
@@ -96,8 +102,8 @@ const HomePage = () => {
 
   const onDeleteWhitelist = async (id) => {
     setLoading(true)
-    del(`/strapi-plugin-sso/whitelist/${id}`).then(response => {
-      get('/strapi-plugin-sso/whitelist').then(response => {
+    del(`/strapi-plugin-sso-ext/whitelist/${id}`).then(response => {
+      get('/strapi-plugin-sso-ext/whitelist').then(response => {
         setUsers(response.data.whitelistUsers)
         setUseWhitelist(response.data.useWhitelist)
       })
@@ -109,8 +115,14 @@ const HomePage = () => {
     })
   }
 
+  const [showEmailLogin, setShowEmailLogin] = useState(true);
+
+  const handleKeycloakLogin = () => {
+    window.location.href = '/strapi-plugin-sso-ext/keycloak';
+  };
+
   return (
-    <Page.Protect permissions={[{action: 'plugin::strapi-plugin-sso.read', subject: null}]}>
+    <Page.Protect permissions={[{action: 'plugin::strapi-plugin-sso-ext.read', subject: null}]}>
       <Layouts.Header
         title={'Single Sign On'}
         subtitle={formatMessage({
@@ -162,6 +174,21 @@ const HomePage = () => {
             />
           </Tabs.Content>
         </Tabs.Root>
+      </Box>
+      <Box padding={10}>
+        <Button onClick={handleKeycloakLogin}>Login with Keycloak</Button>
+        <Checkbox
+          checked={showEmailLogin}
+          onChange={() => setShowEmailLogin(!showEmailLogin)}
+        >
+          Show Email Login
+        </Checkbox>
+        {showEmailLogin && (
+          <TextInput
+            placeholder="Email"
+            type="email"
+          />
+        )}
       </Box>
     </Page.Protect>
   );
