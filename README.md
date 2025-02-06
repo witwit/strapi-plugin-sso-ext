@@ -120,24 +120,6 @@ Of the above, the environment variable for the provider you wish to use is all t
 
 [whitelist](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/whitelist.md)
 
-# Documentation(Japanese)
-
-[Description](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/README.md)
-
-[Google Single Sign On Setup](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/ja/google/setup.md)
-
-[Google Single Sign-On Specifications](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/ja/google/admin.md)
-
-[Cognito Single Sign On Setup](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/ja/cognito/setup.md)
-
-[Cognito Single Sign-On Specifications](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/ja/cognito/admin.md)
-
-TODO AzureAD Single Sign On Setup
-
-TODO OIDC Single Sign On Setup
-
-TODO Keycloak Single Sign On Setup
-
 # Demo
 
 ![CognitoDemo](https://github.com/yasudacloud/strapi-plugin-sso/blob/main/docs/demo.gif?raw=true "DemoMovie")
