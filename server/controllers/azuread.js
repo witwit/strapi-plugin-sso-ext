@@ -2,9 +2,8 @@ import axios from "axios";
 import { randomUUID } from "crypto";
 import pkceChallenge from "pkce-challenge";
 
-
 const configValidation = () => {
-  const config = strapi.config.get("plugin::strapi-plugin-sso");
+  const config = strapi.config.get("plugin::strapi-plugin-sso-ext");
   if (
     config["AZUREAD_OAUTH_CLIENT_ID"] &&
     config["AZUREAD_OAUTH_CLIENT_SECRET"] &&
@@ -47,11 +46,13 @@ async function azureAdSignIn(ctx) {
 
 async function azureAdSignInCallback(ctx) {
   const config = configValidation();
-  const userService = strapi.service('admin::user')
-  const tokenService = strapi.service('admin::token')
-  const oauthService = strapi.plugin("strapi-plugin-sso").service("oauth");
-  const roleService = strapi.plugin("strapi-plugin-sso").service("role");
-  const whitelistService = strapi.plugin('strapi-plugin-sso').service('whitelist')
+  const userService = strapi.service("admin::user");
+  const tokenService = strapi.service("admin::token");
+  const oauthService = strapi.plugin("strapi-plugin-sso-ext").service("oauth");
+  const roleService = strapi.plugin("strapi-plugin-sso-ext").service("role");
+  const whitelistService = strapi
+    .plugin("strapi-plugin-sso-ext")
+    .service("whitelist");
 
   if (!ctx.query.code) {
     return ctx.send(oauthService.renderSignUpError(`code Not Found`));
@@ -81,7 +82,7 @@ async function azureAdSignInCallback(ctx) {
     });
 
     // whitelist check
-    await whitelistService.checkWhitelistForEmail(userResponse.data.email)
+    await whitelistService.checkWhitelistForEmail(userResponse.data.email);
 
     const dbUser = await userService.findOneByEmail(userResponse.data.email);
     let activateUser;

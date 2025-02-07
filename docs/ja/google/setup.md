@@ -1,6 +1,7 @@
 ## Googleアカウントを使ったシングルサインオンについて
 
 ### 前提
+
 このプラグインはStrapi Version4で動作することを確認しています。
 
 具体的にはGoogleアカウントとCognitoユーザープールでシングルサインオンが可能です。
@@ -8,6 +9,7 @@
 ローカル環境に構築する際の手順を次に記します。
 
 ## GCPの設定
+
 [GCP](https://console.developers.google.com/) にアクセスし、[認証情報]から[+認証情報を作成]ボタンを押下し、[OAuth クライアント ID]を選択します。
 
 アプリケーションの種類に[ウェブ アプリケーション]を選択し、[承認済みの JavaScript 生成元]に`http://localhost:1337`を入力します。
@@ -22,17 +24,18 @@
 
 ```javascript
 module.exports = {
-  'strapi-plugin-sso': {
+  "strapi-plugin-sso-ext": {
     enabled: true,
     config: {
       GOOGLE_OAUTH_CLIENT_ID: 作成したGCPのクライアントID,
       GOOGLE_OAUTH_CLIENT_SECRET: 作成したGCPのクライアントシークレット,
-    }
+    },
   },
-}
+};
 ```
 
 ## Strapiの起動
+
 コマンドラインから一度`strapi build`を行なってから、`strapi develop`を実行して下さい。
 問題なく起動し、`http://localhost:1337/admin` にログインまで出来ればセットアップは完了です。
 

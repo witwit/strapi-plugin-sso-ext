@@ -14,11 +14,11 @@ To enable, configure as follows
 // config/plugins.js
 
 export default () => ({
-  'strapi-plugin-sso': {
+  'strapi-plugin-sso-ext': {
     enabled: true,
     config: {
       USE_WHITELIST: true // <- explicitly set to true
-      
+
       // other settings omitted.
     }
   },
@@ -26,7 +26,7 @@ export default () => ({
 ```
 
 ## Lastly
+
 If you enable the whitelist without preparation, you will lose access to the system.
 
 Make sure to add users from the administration page first!
-

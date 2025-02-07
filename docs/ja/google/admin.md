@@ -1,6 +1,7 @@
 ## strapi-plugin-admin Googleアカウント連携の仕様
 
 ### 管理画面について
+
 まず、既存のSuper Admin権限を持ったユーザーで管理画面にログインし、 左サイドメニューのstrapi-plugin-ssoを押下します。
 
 この設定画面はGoogleアカウントやCognitoユーザープールで初めてログインを行なった時のデフォルトの権限を設定します。
@@ -15,6 +16,7 @@
 また、その際は新たにアカウントを作成するわけではないので権限や姓名といった項目は元のアカウントの設定のままになります。（上書きされない）
 
 ### 認証の流れ
+
 プラグインが適切にインストールされている場合、`strapi routes:list |grep strapi-plugin-sso`コマンドを実行すると認証のために必要なパスの一覧を確認できます。
 
 Googleアカウント連携には`GET  /strapi-plugin-sso/google`と`GET /strapi-plugin-sso/google/callback`の2つを使用します。
@@ -22,6 +24,7 @@ Googleアカウント連携には`GET  /strapi-plugin-sso/google`と`GET /strapi
 [セットアップ](setup.md)が完了していれば、Webブラウザから`/strapi-plugin-sso/google`にアクセスすると既にGoogleアカウントを連携することが可能です。
 
 ### 既存のメールアドレスとGoogleのメールアドレスを分けたい場合
+
 前述の通り、デフォルトの設定ではメールアドレスによってアカウントが紐づいてしまいます。
 
 この問題は `GOOGLE_ALIAS`を設定することで回避できます。
@@ -30,14 +33,14 @@ Googleアカウント連携には`GET  /strapi-plugin-sso/google`と`GET /strapi
 ```javascript
 module.exports = {
   // ...その他の設定
-  'strapi-plugin-sso': {
+  "strapi-plugin-sso-ext": {
     enabled: true,
     config: {
       // ...
-      GOOGLE_ALIAS: '123'
-    }
+      GOOGLE_ALIAS: "123",
+    },
   },
-}
+};
 ```
 
 この状態でGoogleアカウント`example@gmail.com`が認証を行なった場合、`example+123@gmail.com` というメールアドレスでStrapiに新規アカウントとして作成されます。
@@ -47,6 +50,7 @@ module.exports = {
 ※新規アカウントは通常のStrapiのパスワードポリシーに従った予測困難なパスワードを自動生成して付与しています。
 
 ### Googleアカウントの連携制限
+
 デフォルトの設定ではGoogleアカウントを持つユーザーは誰でも登録可能になっています。
 
 Strapiの運用環境（本番環境）は基本的に部外者のアクセス制限を行なっていると思いますが、このプラグインではG Suite利用者向けに制限を加えることができます。
@@ -56,14 +60,14 @@ Strapiの運用環境（本番環境）は基本的に部外者のアクセス�
 ```javascript
 module.exports = {
   // ...その他の設定
-  'strapi-plugin-sso': {
+  "strapi-plugin-sso-ext": {
     enabled: true,
     config: {
       // ...
-      GOOGLE_GSUITE_HD: 'example.com'
-    }
+      GOOGLE_GSUITE_HD: "example.com",
+    },
   },
-}
+};
 ```
 
 ### Webhooks
@@ -79,15 +83,13 @@ EventsのEntry行のCREATEにチェックを入れて、それ以外の項目に
 
 最後にGoogle SSOで設定可能な設定の一覧を記します。
 
-
-|  キー |  必須 | デフォルト値 |
-| --- | -- | ---- |
-| GOOGLE_OAUTH_CLIENT_ID | ○ | - |
-| GOOGLE_OAUTH_CLIENT_SECRET | ○ | - |
-| COGNITO_OAUTH_REDIRECT_URI | - | http://localhost:1337/strapi-plugin-sso/google/callback |
-| GOOGLE_ALIAS | - | - |
-| GOOGLE_GSUITE_HD | - | - |
-
+| キー                       | 必須 | デフォルト値                                            |
+| -------------------------- | ---- | ------------------------------------------------------- |
+| GOOGLE_OAUTH_CLIENT_ID     | ○    | -                                                       |
+| GOOGLE_OAUTH_CLIENT_SECRET | ○    | -                                                       |
+| COGNITO_OAUTH_REDIRECT_URI | -    | http://localhost:1337/strapi-plugin-sso/google/callback |
+| GOOGLE_ALIAS               | -    | -                                                       |
+| GOOGLE_GSUITE_HD           | -    | -                                                       |
 
 スコープは`https://www.googleapis.com/auth/userinfo.email`と`https://www.googleapis.com/auth/userinfo.profile`の2つを必要としています。
 
